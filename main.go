@@ -2,32 +2,22 @@ package main
 
 import (
     "fmt"
-    "pss/shiksha"
+    "pss/lexer"
 )
 
 func main() {
-    // Create an example Token with a Svara, Matra, and Aksharas
-    token := shiksha.Token{
-        Svara:    shiksha.Udaatta,
-        Matra:    1,
-        Aksharas: []shiksha.Akshara{shiksha.A, shiksha.I}, // Example usage of multiple Aksharas
+    input := "yO vEdAdau sva#raH prOqktOq vEqdAntE# ca praqtiShThi#taH" // | tasya# praqkRuti#lInaqsyaq yaqH para#H sa maqhESva#raH |"
+    
+    // Tokenize the input string
+    tokens, err := lexer.Tokenize(input)
+    if err != nil {
+        fmt.Printf("Error tokenizing input: %v\n", err)
+        return
     }
-
-    // Display the token details
-    fmt.Printf("Token Details:\n")
-    fmt.Printf("  Svara: %s\n", token.Svara.String())
-    fmt.Printf("  Matra: %d\n", token.Matra)
-    fmt.Printf("  Aksharas:\n")
-    for _, akshara := range token.Aksharas {
-        fmt.Printf("    Unicode: %s, Devanagari: %s, Roman: %s\n", akshara.Unicode, akshara.Devanagari, akshara.Roman)
-    }
-
-    // Create a Pada with multiple tokens
-    pada := shiksha.Pada{token, token}
-
-    // Display Pada details
-    fmt.Printf("\nPada Details:\n")
-    for i, tok := range pada {
-        fmt.Printf("  Token %d - Svara: %s, Matra: %d\n", i+1, tok.Svara.String(), tok.Matra)
+    
+    // Display the tokens
+    fmt.Println("Tokens:")
+    for _, token := range tokens {
+        fmt.Printf("Unicode: %s, Devanagari: %s, Roman: %s\n", token.Unicode, token.Devanagari, token.Roman)
     }
 }
