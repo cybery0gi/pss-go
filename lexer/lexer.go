@@ -12,7 +12,7 @@ func Tokenize(input string) ([]shiksha.Akshara, error) {
         // Convert the rune to a string for mapping
         chStr := string(char)
         if chStr != " "{
-          fmt.Println(barahaToAkshara[chStr])
+          fmt.Println(chStr)
         }
     }
 
